@@ -9,9 +9,7 @@ const PORT = process.env.PORT || 3030;
 app.use(cors());
 app.use(express.json());
 
-app.get("/api", (req, res) => {
-  res.send("Hello World!");
-});
+app.get("/api", routes);
 //connecting the and then letting you know its on and what port its on
 db.on("connected", () => {
   console.clear();
