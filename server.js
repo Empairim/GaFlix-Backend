@@ -2,6 +2,7 @@ import db from "./db/connection.js";
 import express from "express";
 import cors from "cors";
 import chalk from "chalk";
+import routes from "./routes/routes.js";
 
 const app = express();
 const PORT = process.env.PORT || 3030;
