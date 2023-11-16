@@ -1,40 +1,39 @@
 import db from "../db/connection.js";
+import fetch from "node-fetch";
+import chalk from "chalk";
+import HorrorMovie from "../models/HorrorMovie.js";
+import ActionMovie from "../models/ActionMovie.js";
+import horror from "./horror.json" assert { type: "json" };
+import action from "./action.json" assert { type: "json" };
 
-import User from "../models/user.js";
-import bcrypt from "bcrypt";
+const horrorMovies = horror.map((movie) => ({
+  title: movie.title,
+  release_date: movie.release_date,
+  poster_path: movie.poster_path,
+  vote_average: movie.vote_average,
+  overview: movie.overview,
+}));
+
+const actionMovies = action.map((movie) => ({
+  title: movie.title,
+  release_date: movie.release_date,
+  poster_path: movie.poster_path,
+  vote_average: movie.vote_average,
+  overview: movie.overview,
+}));
 
 const insertData = async () => {
-  // reset database
+  // Reset Database
   await db.dropDatabase();
 
-  const user1 = new User({
-    username: "bruno",
-    email: "root@super.gmail.com",
-    password_digest: await bcrypt.hash("!a$ecureP@ssw0Rd55!", 11),
-  });
-  await user1.save();
+  // Insert Data
+  await HorrorMovie.create(horrorMovies);
+  await ActionMovie.create(actionMovies);
 
-  const user2 = new User({
-    username: "bianca",
-    email: "b.anca@super.gmail.com",
-    password_digest: await bcrypt.hash("!$h0pp3R1", 11),
-  });
-  await user2.save();
+  console.log(chalk.magenta("action and horror movies created!"));
 
-  const user3 = new User({
-    username: "enzo",
-    email: "n.zo@super.gmail.com",
-    password_digest: await bcrypt.hash("!$eller4Lif3", 11),
-  });
-  await user3.save();
-
-  const user4 = new User({
-    username: "kumi",
-    email: "kumi@super.gmail.com",
-    password_digest: await bcrypt.hash("L0v32!p4int", 11),
-  });
-  await user4.save();
-  db.close();
+  // Close DB Connection
+  await db.close();
 };
 
 insertData();
