@@ -1,7 +1,7 @@
 import { Router } from "express";
 import horrorRoutes from "./horrorMovie.js";
 import actionRoutes from "./actionMovie.js";
-import userRoutes from "./users"
+import userRoutes from "./users.js";
 
 const router = Router();
 
@@ -10,7 +10,9 @@ router.get("/", (req, res) => {
 });
 
 router.use("/horror", horrorRoutes);
+// http://localhost:3030/api/
 router.use("/action", actionRoutes);
-router.use("/users", userRoutes)
+
+router.use("/users", userRoutes);
 
 export default router;
