@@ -19,6 +19,7 @@ const exp = new Date(today);
 exp.setDate(today.getDate() + 30);
 
 export const signUp = async (req, res) => {
+  console.log("signup function called");
   try {
     const { username, email, password } = req.body;
     const password_digest = await bcrypt.hash(password, SALT_ROUNDS);
@@ -47,6 +48,7 @@ export const signUp = async (req, res) => {
 
 // Sign in
 export const signIn = async (req, res) => {
+  console.log("signin function called");
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email: email }).select(
@@ -84,4 +86,18 @@ export const verify = async (req, res) => {
   }
 };
 
-export const changePassword = async (req, res) => {};
+export const deleteUser = async (req, res) => {
+  console.log("deleteUser function called");
+  try {
+    const { id } = req.params;
+    const deletedUser = await User.findByIdAndDelete(id);
+    if (deletedUser) {
+      res.status(200).json({ message: "User deleted successfully" });
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ error: error.message });
+  }
+};
