@@ -7,6 +7,10 @@ mongoose.connect("mongodb://127.0.0.1:27017/gaflix").catch((err) => {
   console.log(`Error connection to MongoDB: ${err.message}`);
 });
 
+mongoose.connection.on("connected", () => {
+  console.log(chalk.bold("connected to MongoDB!"));
+});
+
 mongoose.connection.on("disconnected", () => {
   console.log(chalk.bold("Disconnected from MongoDB!"));
 });
