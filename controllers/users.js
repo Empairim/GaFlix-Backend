@@ -101,3 +101,24 @@ export const deleteUser = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export const updateUserName = async (req, res) => {
+  console.log("updateUser function called");
+  try {
+    const { id } = req.params;
+    const { username } = req.body;
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { username },
+      { new: true }
+    );
+    if (updatedUser) {
+      res.status(200).json({ message: "User updated successfully" });
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ error: error.message });
+  }
+};

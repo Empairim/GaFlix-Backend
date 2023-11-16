@@ -7,5 +7,6 @@ router.post("/sign-up", controllers.signUp);
 router.post("/sign-in", controllers.signIn);
 router.get("/verify", controllers.verify);
 router.delete("/delete/:id", controllers.deleteUser);
+router.put("/update/:id", controllers.updateUserName);
 
 export default router;
