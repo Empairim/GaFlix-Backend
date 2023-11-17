@@ -9,3 +9,6 @@ router.get("/verify", controllers.verify);
 router.post("/change-password", controllers.changePassword);
 
 export default router;
+
+//Update
+//Delete

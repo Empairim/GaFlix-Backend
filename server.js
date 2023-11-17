@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3030;
 app.use(cors());
 app.use(express.json());
 
+// This includes the api in the route just delete the word api to remove the /api
 app.use("/api", routes);
 
 db.on("connected", () => {
